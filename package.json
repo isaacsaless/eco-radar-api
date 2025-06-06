@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "eco-radar-api",
+  "version": "1.0.0",
+  "description": "API para rastreamento de incêndios usando Fastify e TypeScript",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "start": "tsx src/app.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "isaacsaless",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "csv-parse": "^5.6.0",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.5.0",
+    "fastify": "^5.3.3"
+  }
+}
