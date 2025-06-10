@@ -3,6 +3,11 @@ import "dotenv/config";
 import axios from "axios";
 import { parse } from "csv-parse/sync";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default async function routes(fastify: FastifyInstance) {
   fastify.get(
@@ -12,7 +17,7 @@ export default async function routes(fastify: FastifyInstance) {
         return reply.status(500).send("API key is not configured");
       }
       try {
-        const dataAtual = dayjs().format("YYYY-MM-DD");
+        const dataAtual = dayjs().tz("America/Sao_Paulo").format("YYYY-MM-DD");
         const response = await axios.get(
           `https://firms.modaps.eosdis.nasa.gov/api/country/csv/${process.env.NASA_API_KEY}/VIIRS_SNPP_NRT/BRA/1/${dataAtual}`
         );
