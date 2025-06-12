@@ -1,9 +1,11 @@
 import Fastify from 'fastify';
-import routes from './routes/get-data'; 
+import getDataRoute from './routes/get-data';
+import addPropriedadeRoute from './routes/add-propriedade';
 
 const app = Fastify();
 
-app.register(routes);
+app.register(getDataRoute);
+app.register(addPropriedadeRoute);
 
 app.listen({ port: 3000, host:'0.0.0.0' }, (err, address) => {
   if (err) {

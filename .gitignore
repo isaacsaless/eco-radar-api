@@ -38,6 +38,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 # Ignore test directory
-/src/app/test/
+/src/test/
 # Ignore test files
-/src/app/_test/
+/src/_test/
