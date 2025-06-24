@@ -43,7 +43,7 @@ export default async function routes(fastify: FastifyInstance) {
           });
         });
 
-        return reply.send({ data });
+        return reply.send(data);
       } catch (error) {
         console.error("Erro ao buscar dados no Firebase:", error);
         return reply.status(500).send({ error: "Erro ao buscar dados" });
