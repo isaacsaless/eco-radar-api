@@ -23,7 +23,7 @@ export default async function routes(fastify: FastifyInstance) {
   fastify.setSerializerCompiler(serializerCompiler);
   fastify.withTypeProvider<ZodTypeProvider>();
 
-  fastify.delete(
+  fastify.post(
     "/delete-propriedade",
     {
       schema: {
