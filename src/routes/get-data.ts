@@ -51,7 +51,19 @@ export default async function routes(fastify: FastifyInstance) {
           from_line: 2,
         });
 
-        return reply.status(200).send(records);
+        const recordsWithNumericFrp = records.map((record: any) => ({
+          ...record,
+          frp: parseFloat(record.frp) || 0,
+        }));
+
+        recordsWithNumericFrp.sort((a: any, b: any) => b.frp - a.frp);
+
+        const top400 = recordsWithNumericFrp.slice(0, 400);
+        const remaining = recordsWithNumericFrp.slice(400);
+
+        const sortedRecords = [...top400, ...remaining];
+
+        return reply.status(200).send(sortedRecords);
       } catch (error) {
         console.error("Error fetching data:", error);
         return reply.status(500).send("Error fetching data, check server logs");
