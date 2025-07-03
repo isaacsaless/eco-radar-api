@@ -29,12 +29,6 @@ export default async function routes(fastify: FastifyInstance) {
 
         const snapshot: DataSnapshot = await get(alertasQuery);
 
-        if (!snapshot.exists()) {
-          return reply
-            .status(404)
-            .send({ error: "Propriedade não encontrada" });
-        }
-
         const data: any[] = [];
         snapshot.forEach((childSnapshot) => {
           data.push({
