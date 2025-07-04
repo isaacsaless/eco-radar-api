@@ -27,6 +27,8 @@
     "fastify": "^5.3.3",
     "fastify-type-provider-zod": "^5.0.1",
     "firebase": "^11.9.1",
+    "google-tts-api": "^2.0.2",
+    "undici": "^7.11.0",
     "zod": "^3.25.61"
   }
 }

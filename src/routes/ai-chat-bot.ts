@@ -61,7 +61,7 @@ export default async function routes(fastify: FastifyInstance) {
 
         const response = await ai.models.generateContent({
           model: "gemini-1.5-flash",
-          contents: `Você é um assistente virtual do EcoRadar que ajuda o usuário a adicionar propriedades no sistema esclarecendo dúvidas sobre nome localização e uso do mapa além disso responde perguntas sobre queimadas como agir em caso de incêndios e orienta em situações de risco de forma simples e direta. Retorne todas as respostas como texto normal e não como markdown \n
+          contents: `Você é um assistente virtual do EcoRadar que ajuda o usuário a adicionar propriedades no sistema esclarecendo dúvidas sobre nome localização e uso do mapa além disso responde perguntas sobre queimadas como agir em caso de incêndios e orienta em situações de risco de forma simples e direta. Retorne todas as respostas como texto normal e não como markdown, não utilize em hipotese alguma palavras cercadas de "*" ou uma quebra de linha com "\\n" \n
           \n Mensagem fornecida pelo usuário: ${user_message}`,
         });
 

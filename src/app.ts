@@ -5,6 +5,7 @@ import getPropriedadesRoute from './routes/get-propriedades';
 import getAlertasRoute from './routes/get-alertas';
 import deletePropriedadeRoute from './routes/delete-propriedade';
 import aiChatBotRoute from './routes/ai-chat-bot';
+import getTtsRoute from './routes/get-tts';
 
 const app = Fastify();
 
@@ -14,6 +15,7 @@ app.register(getPropriedadesRoute);
 app.register(getAlertasRoute);
 app.register(deletePropriedadeRoute);
 app.register(aiChatBotRoute);
+app.register(getTtsRoute);
 
 app.listen({ port: 3000, host:'0.0.0.0' }, (err, address) => {
   if (err) {
