@@ -56,12 +56,9 @@ export default async function routes(fastify: FastifyInstance) {
           frp: parseFloat(record.frp) || 0,
         }));
 
-        recordsWithNumericFrp.sort((a: any, b: any) => b.frp - a.frp);
+        recordsWithNumericFrp.sort((a: any, b: any) => a.frp - b.frp);
 
-        const top400 = recordsWithNumericFrp.slice(0, 400);
-        const remaining = recordsWithNumericFrp.slice(400);
-
-        const sortedRecords = [...top400, ...remaining];
+        const sortedRecords = recordsWithNumericFrp;
 
         return reply.status(200).send(sortedRecords);
       } catch (error) {
