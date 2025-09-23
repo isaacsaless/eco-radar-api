@@ -35,24 +35,9 @@ export default async function routes(fastify: FastifyInstance) {
         const csvPath = path.join(process.cwd(), "src", "dados.csv");
         const csvData = fs.readFileSync(csvPath, "utf-8");
 
-        const records = parse(csvData , {
-          columns: [
-            "latitude",
-            "longitude",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            "frp",
-            null,
-          ],
+        const records = parse(csvData, {
+          columns: true,
           skip_empty_lines: true,
-          from_line: 2,
         });
 
         const recordsWithNumericFrp = records.map((record: any) => ({
