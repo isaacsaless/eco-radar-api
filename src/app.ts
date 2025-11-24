@@ -9,6 +9,10 @@ import getTtsRoute from './routes/get-tts';
 
 const app = Fastify();
 
+app.register(require('fastify-cors'), {
+  origin: '*',
+});
+
 app.register(getDataRoute);
 app.register(addPropriedadeRoute);
 app.register(getPropriedadesRoute);
