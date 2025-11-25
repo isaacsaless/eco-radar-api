@@ -1,4 +1,5 @@
 import Fastify from 'fastify';
+import cors from '@fastify/cors'
 import getDataRoute from './routes/get-data';
 import addPropriedadeRoute from './routes/add-propriedade';
 import getPropriedadesRoute from './routes/get-propriedades';
@@ -9,7 +10,7 @@ import getTtsRoute from './routes/get-tts';
 
 const app = Fastify();
 
-app.register(require('fastify-cors'), {
+await app.register(cors, {
   origin: '*',
 });
 
