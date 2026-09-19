@@ -32,21 +32,6 @@ export default async function routes(fastify: FastifyInstance) {
         return reply.status(500).send("API key is not configured");
       }
       try {
-        const csvPath = path.join(process.cwd(), "src", "dados.csv");
-        const csvData = fs.readFileSync(csvPath, "utf-8");
-
-        const historico: Foco[] = parse(csvData, {
-          columns: true,
-          skip_empty_lines: true,
-        }).map((record: any) => ({
-          latitude: record.latitude,
-          longitude: record.longitude,
-          frp: parseFloat(record.frp) || 0,
-        }));
-
-        // Dados recentes (NRT). Endpoint `country` foi descontinuado na FIRMS v4
-        // (usar `area` com bbox) e VIIRS_SNPP_NRT encerra em 01/11/2026
-        // (usar VIIRS_NOAA20_NRT). `dias` é relativo a ontem e varia de 1 a 5.
         let recentes: Foco[] = [];
         try {
           const dias = Math.min(
@@ -68,24 +53,21 @@ export default async function routes(fastify: FastifyInstance) {
             frp: parseFloat(record.frp) || 0,
           }));
         } catch (error) {
-          // Se a FIRMS falhar, mantém só o histórico estático
           console.error("Error fetching NRT data:", error);
+          return reply.status(500).send("Error fetching NASA API data");
         }
 
-        // Amostra os recentes por stride pra caber no limite do App Inventor,
-        // mantendo o histórico estático sempre completo.
-        const usado = historico.reduce((s, f) => s + tamanhoAprox(f), 0);
-        const sobrou = BUDGET_CHARS - usado;
+        // Amostra os recentes por stride pra caber no limite do App Inventor
         const passo = Math.max(
           1,
           Math.ceil(
             recentes.reduce((s, f) => s + tamanhoAprox(f), 0) /
-              Math.max(sobrou, 1)
+              Math.max(BUDGET_CHARS, 1)
           )
         );
         recentes = recentes.filter((_, i) => i % passo === 0);
 
-        const sortedRecords = [...historico, ...recentes].sort(
+        const sortedRecords = recentes.sort(
           (a: Foco, b: Foco) => a.frp - b.frp
         );
 
